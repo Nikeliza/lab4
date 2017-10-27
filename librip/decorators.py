@@ -35,3 +35,21 @@
 # test_4
 # 1
 # 2
+
+def print_result(function_to_decorate):
+# Внутри себя декоратор определяет функцию-"обёртку". Она будет обёрнута вокруг декорируемой,
+# получая возможность исполнять произвольный код до и после неё.
+    def the_wrapper_around_the_original_function(*a):
+        otv = function_to_decorate(*a) # Сама функция
+        print(function_to_decorate.__name__)
+        if type(otv) == list:
+            for i in otv:
+                print(i)
+        elif type(otv) == dict:
+            for i, j in otv.items():
+                print(i, '=', j)
+        else:
+            print(otv)
+        return otv
+        # Вернём эту функцию
+    return the_wrapper_around_the_original_function
